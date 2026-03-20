@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sua Vantagem Competitiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @import url('https://fonts.cdnfonts.com/css/host-grotesk');
+        
+        body {
+            font-family: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #F5F3ED;
+            color: #1a1a1a;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            margin-bottom: 45px;
+            line-height: 1.2;
+            text-align: center;
+        }
+        
+        .highlight {
+            background-color: #fff878;
+            padding: 4px 12px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .business-setup {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: subtleGlow 4.5s ease-out;
+        }
+        
+        @keyframes subtleGlow {
+            0% { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+            20% { box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 20px rgba(255, 248, 120, 0.4); }
+            60% { box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 0 20px rgba(255, 248, 120, 0.4); }
+            100% { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+        }
+        
+        .setup-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .input-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 0;
+        }
+        
+        .input-inline.xlarge { flex: 2; }
+        .input-inline.medium { flex: 1 1 0; }
+        
+        .input-label-inline {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #666;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .input {
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: white;
+            flex: 1;
+            min-width: 0;
+            width: 100%;
+        }
+        
+        select.input { cursor: pointer; }
+        
+        .input:focus {
+            outline: none;
+            border-color: #659266;
+            box-shadow: 0 0 0 2px rgba(101, 146, 102, 0.1);
+        }
+        
+        .products-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+        
+        .product-chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 14px;
+            background: #f8f8f8;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+        
+        .product-chip:not(.disabled):hover {
+            background: #e8f5e9;
+            border-color: #659266;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .product-chip.selected {
+            background: #e8f5e9;
+            border-color: #659266;
+            box-shadow: 0 1px 4px rgba(101, 146, 102, 0.2);
+        }
+        
+        .product-chip.disabled { cursor: not-allowed; opacity: 0.8; }
+        .product-chip.disabled.selected { background: #e3f2fd; border-color: #2196F3; }
+        .product-chip input { width: 18px; height: 18px; cursor: pointer; }
+        .product-chip.disabled input { cursor: not-allowed; }
+        .product-chip span { font-size: 0.9rem; font-weight: 600; color: #333; }
+        
+        .transformation-header {
+            text-align: center;
+            margin: 50px 0 30px 0;
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        
+        .transformation-header.dimmed { opacity: 0.35; filter: grayscale(0.3); }
+        
+        .transformation-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        
+        .transformation-subtitle {
+            font-size: 1rem;
+            color: #666;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+        
+        .period-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        
+        .toggle-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-label.active { color: #659266; }
+        
+        .toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: #e0e0e0;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .toggle-switch.annual { background: #659266; }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .toggle-switch.annual .toggle-slider { transform: translateX(24px); }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+        
+        .metric-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border-top: 4px solid #999;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        
+        .metric-column.dimmed { opacity: 0.35; filter: grayscale(0.3); pointer-events: none; }
+        .metric-column.occupancy { border-top-color: #FFEB3B; }
+        .metric-column.adr { border-top-color: #FF9670; }
+        .metric-column.direct { border-top-color: #C2A9F1; }
+        .metric-column.upsell { border-top-color: #90D092; }
+        
+        .metric-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        
+        .metric-name-sub { font-size: 0.75rem; font-weight: 500; color: #666; }
+        .section-divider { height: 1px; background: #d0d0d0; margin: 10px 0; }
+        .metric-section { display: flex; flex-direction: column; }
+        
+        .section-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .current-goal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .current-goal-group { display: flex; flex-direction: column; }
+        
+        .current-goal-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        
+        .required-asterisk { color: #dc2626; margin-left: 2px; font-weight: 700; }
+        
+        .current-input {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: white;
+            font-weight: 600;
+            color: #333;
+            width: 100%;
+        }
+        
+        .current-input:focus {
+            outline: none;
+            border-color: #659266;
+            box-shadow: 0 0 0 2px rgba(101, 146, 102, 0.1);
+            color: #1a1a1a;
+        }
+        
+        .goal-input {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1.2rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: #fffef5;
+            font-weight: 600;
+            color: #d68910;
+            width: 100%;
+        }
+        
+        .goal-input::placeholder { color: #d6891066; }
+        .goal-input:focus { outline: none; border-color: #d68910; box-shadow: 0 0 0 2px rgba(214, 137, 16, 0.1); }
+        
+        .pain-value { font-size: 1.3rem; font-weight: 700; color: #d68910; line-height: 1.2; }
+        .pain-desc { font-size: 0.7rem; color: #999; margin-top: 3px; }
+        
+        .lift-display {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #659266;
+            margin-bottom: 6px;
+            min-height: 29px;
+        }
+        
+        .slider-container { position: relative; margin: 12px 0 8px 0; padding-top: 20px; }
+        
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #e0e0e0 0%, #659266 100%);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #659266;
+            cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+        
+        .slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #659266;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .slider::-moz-range-thumb:hover { transform: scale(1.15); }
+        
+        .slider-marker { position: absolute; top: -4px; transform: translateX(-50%); pointer-events: none; z-index: 5; }
+        .marker-goal { width: 4px; height: 22px; background: #FFD700; border-radius: 1px; top: -8px; }
+        .marker-avg-range { width: 4px; height: 22px; background: #2196F3; border-radius: 1px; top: -8px; }
+        
+        .slider-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.65rem; color: #999; font-weight: 600; }
+        .slider-legend { display: flex; justify-content: center; gap: 15px; margin-top: 10px; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 5px; font-size: 0.65rem; color: #666; }
+        .legend-marker { width: 12px; height: 12px; border-radius: 1px; }
+        .legend-marker.goal { background: #FFD700; }
+        .legend-marker.avg { background: #2196F3; }
+        
+        .impact-disclaimer { font-size: 0.6rem; color: #999; line-height: 1.4; margin-top: 8px; text-align: left; font-style: italic; }
+        
+        .impact-stat { margin-bottom: 10px; line-height: 1.3; }
+        .impact-number { font-size: 1.45rem; font-weight: 700; color: #659266; display: inline; }
+        .impact-label { font-size: 0.7rem; color: #7dad7e; font-weight: 500; display: inline; margin-left: 5px; }
+        .impact-formula { font-size: 0.6rem; color: #999; line-height: 1.4; margin-top: 8px; text-align: left; font-style: italic; }
+        
+        .results-unified {
+            background: white;
+            border-radius: 10px;
+            padding: 40px 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transition: opacity 0.4s ease, filter 0.4s ease;
+        }
+        
+        .results-unified.dimmed { opacity: 0.35; filter: grayscale(0.3); pointer-events: none; }
+        
+        .results-hero { text-align: center; margin-bottom: 35px; padding-bottom: 30px; border-bottom: 1px solid #f0f0f0; position: relative; }
+        .results-hero-header { display: flex; justify-content: center; align-items: center; position: relative; margin-bottom: 12px; }
+        .results-hero-header .download-btn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+        .results-hero-number { font-size: 3.5rem; font-weight: 700; color: #659266; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .results-hero-title { font-size: 1.1rem; font-weight: 500; color: #333; margin-bottom: 8px; }
+        .results-hero-subtitle { font-size: 0.9rem; color: #999; }
+        
+        .results-cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px; }
+        .results-cards-grid.three-cards { grid-template-columns: repeat(3, 1fr); justify-items: center; max-width: 900px; margin-left: auto; margin-right: auto; margin-bottom: 30px; }
+        .results-cards-grid.three-cards .result-card { width: 100%; }
+        
+        .result-card { background: #fafafa; border-radius: 8px; padding: 20px; text-align: center; border: 1px solid #f0f0f0; }
+        .result-card.bottom-line-card { background: #f0f8f0; border: 2px solid #659266; }
+        .result-card-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 10px; font-weight: 600; }
+        .result-card-value { font-size: 2rem; font-weight: 700; color: #659266; margin-bottom: 5px; line-height: 1.2; }
+        .result-card-desc { font-size: 0.7rem; color: #999; line-height: 1.3; }
+        
+        .cost-consideration { background: #fafafa; border-radius: 8px; padding: 20px; margin-bottom: 25px; }
+        .cost-inputs-row { display: grid; grid-template-columns: 1fr 1fr 0.8fr; gap: 20px; }
+        .cost-input-group { display: flex; flex-direction: column; }
+        .cost-label { font-size: 0.75rem; font-weight: 600; color: #666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .cost-input-wrapper { display: flex; align-items: center; background: white; border: 1px solid #ddd; border-radius: 6px; padding: 8px 12px; }
+        .cost-currency { font-size: 0.9rem; color: #666; font-weight: 600; margin-right: 4px; }
+        .cost-input { flex: 1; border: none; outline: none; font-size: 1rem; font-weight: 600; color: #333; font-family: inherit; min-width: 0; }
+        .cost-period { font-size: 0.75rem; color: #999; margin-left: 4px; white-space: nowrap; }
+        
+        .results-context { text-align: center; padding: 25px; background: #f9f9f9; border-radius: 6px; }
+        .context-primary { font-size: 1.1rem; color: #333; font-weight: 600; margin-bottom: 12px; }
+        .context-metrics { display: flex; justify-content: space-evenly; gap: 20px; flex-wrap: wrap; margin-top: 15px; }
+        .context-metric { display: flex; flex-direction: column; align-items: center; min-width: 120px; flex: 0 1 auto; }
+        .context-metric-value { font-size: 1.3rem; font-weight: 700; color: #659266; margin-bottom: 5px; white-space: nowrap; }
+        .context-metric-label { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; text-align: center; line-height: 1.3; max-width: 140px; }
+        
+        .download-btn { background: none; border: none; cursor: pointer; color: #888; padding: 4px 8px; transition: color 0.2s ease; line-height: 1; display: flex; align-items: center; justify-content: center; }
+        .download-btn:hover { color: #333; }
+        .download-btn svg { width: 20px; height: 20px; }
+        
+        body.pdf-mode { padding: 0; background: #F5F3ED; }
+        body.pdf-mode .container { padding: 30px 40px 20px 40px; background: #F5F3ED; max-width: 100%; }
+        body.pdf-mode h1 { margin-top: 0; padding-top: 0; margin-bottom: 20px; font-size: 2.5rem; }
+        body.pdf-mode .business-setup { box-shadow: none; border: 1px solid #e0e0e0; margin-bottom: 20px; padding: 20px; }
+        body.pdf-mode .metrics-grid { margin-bottom: 20px; gap: 15px; width: 100%; }
+        body.pdf-mode .input, body.pdf-mode .product-chip input { pointer-events: none; border-color: #e0e0e0; padding: 8px 10px; font-size: 0.9rem; }
+        body.pdf-mode .transformation-header, body.pdf-mode .download-btn { display: none !important; }
+        body.pdf-mode .metric-column { box-shadow: none; border: 1px solid #e0e0e0; padding: 15px; gap: 12px; min-width: 0; overflow: visible; }
+        body.pdf-mode .slider-container, body.pdf-mode .slider-labels, body.pdf-mode .slider-legend { display: none !important; }
+        body.pdf-mode .current-input, body.pdf-mode .goal-input { pointer-events: none; background: #f9f9f9; padding: 6px 8px; font-size: 1.1rem; }
+        body.pdf-mode .results-unified { box-shadow: none; border: 1px solid #e0e0e0; padding: 25px 20px; }
+        body.pdf-mode .results-hero { margin-bottom: 20px; padding-bottom: 20px; }
+        body.pdf-mode .results-hero-number { font-size: 3rem; margin-bottom: 8px; }
+        body.pdf-mode .results-hero-title { font-size: 1rem; }
+        body.pdf-mode .results-hero-subtitle { font-size: 0.85rem; }
+        body.pdf-mode .results-cards-grid { margin-bottom: 20px; gap: 15px; }
+        body.pdf-mode .results-context { padding: 18px; }
+        body.pdf-mode .result-card { padding: 15px; }
+        body.pdf-mode .context-metrics { margin-top: 10px; gap: 15px; }
+        body.pdf-mode .context-primary { margin-bottom: 8px; font-size: 1rem; }
+        body.pdf-mode .section-divider { margin: 8px 0; }
+        body.pdf-mode .cost-consideration { display: none !important; }
+        body.pdf-mode .impact-disclaimer { display: none !important; }
+        body.pdf-mode .pdf-branding { display: none !important; }
+        
+        .pdf-metric-projection { display: none; text-align: center; padding: 12px; background: #f0f8f0; border-radius: 6px; margin-top: 10px; }
+        body.pdf-mode .pdf-metric-projection { display: block; padding: 8px; margin-top: 6px; }
+        body.pdf-mode .impact-stat { margin-bottom: 6px; }
+        body.pdf-mode .impact-formula { margin-top: 6px; }
+        body.pdf-mode .pain-value { line-height: 1.1; font-size: 1.2rem; }
+        body.pdf-mode .impact-number { font-size: 1.35rem; }
+        body.pdf-mode .pdf-projection-value { font-size: 1.2rem; }
+        body.pdf-mode .context-metric-value { font-size: 1.2rem; }
+        body.pdf-mode .context-metric-label { font-size: 0.65rem; }
+        body.pdf-mode .metric-name { font-size: 1.05rem; margin-bottom: 3px; white-space: normal; word-spacing: 0.15em; letter-spacing: 0.01em; transform: none; line-height: 1.4; min-height: 2.6em; display: block; text-align: center; }
+        body.pdf-mode .metric-name-sub { display: inline; white-space: nowrap; margin-left: 0.2em; }
+        body.pdf-mode .input-label-inline { font-size: 0.75rem; }
+        body.pdf-mode .product-chip span { font-size: 0.85rem; }
+        body.pdf-mode .setup-row { margin-bottom: 18px; }
+        body.pdf-mode .products-label { margin-bottom: 10px; }
+        body.pdf-mode .products-grid { gap: 10px; }
+        body.pdf-mode .result-card-value { font-size: 1.8rem; }
+        body.pdf-mode .result-card-label { font-size: 0.7rem; margin-bottom: 8px; }
+        body.pdf-mode .result-card-desc { font-size: 0.65rem; }
+        body.pdf-mode .product-chip { padding: 10px 12px; }
+        body.pdf-mode .current-goal-row { gap: 6px; }
+        
+        .pdf-projection-label { font-size: 0.65rem; text-transform: uppercase; color: #666; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.03em; }
+        .pdf-projection-value { font-size: 1.3rem; font-weight: 700; color: #659266; }
+        body.pdf-mode .lift-display { display: none; }
+        
+        .pdf-disclaimer { display: none; margin-top: 40px; padding: 20px 30px; background: #f9f9f9; border-left: 3px solid #659266; border-radius: 6px; }
+        body.pdf-mode .pdf-disclaimer { display: none !important; }
+        
+        .pdf-disclaimer-integrated { display: none; }
+        body.pdf-mode .pdf-disclaimer-integrated { display: block; margin-top: 12px; padding-top: 12px; border-top: 1px solid #e0e0e0; font-size: 0.65rem; color: #666; line-height: 1.5; font-style: italic; }
+        body.pdf-mode .pdf-disclaimer-integrated strong { font-weight: 700; }
+        
+        .pdf-branding { display: none; margin-top: 30px; text-align: center; font-size: 0.9rem; color: #999; font-weight: 500; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+        body.pdf-mode .pdf-branding { display: block; }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-overlay.visible { display: flex; }
+        .modal-content { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); max-width: 400px; width: 90%; }
+        .modal-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
+        .modal-subtitle { font-size: 0.9rem; color: #666; margin-bottom: 20px; line-height: 1.4; }
+        .modal-buttons { display: flex; gap: 12px; justify-content: flex-end; }
+        .modal-btn { padding: 10px 20px; border: none; border-radius: 6px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease; font-family: inherit; }
+        .modal-btn-cancel { background: #e5e5e5; color: #666; }
+        .modal-btn-cancel:hover { background: #d0d0d0; }
+        .modal-btn-download { background: #659266; color: white; }
+        .modal-btn-download:hover { background: #547a54; }
+        
+        .pdf-assumptions { display: none; margin-top: 25px; padding: 20px; background: #f9f9f9; border-radius: 6px; text-align: center; }
+        .pdf-assumptions.visible { display: block; }
+        .assumptions-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-bottom: 10px; font-weight: 600; }
+        .assumptions-content { font-size: 0.9rem; color: #333; line-height: 1.6; }
+        
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .results-cards-grid { grid-template-columns: repeat(2, 1fr); }
+            .results-cards-grid.three-cards { grid-template-columns: repeat(2, 1fr); }
+            .cost-inputs-row { grid-template-columns: 1fr 1fr 0.8fr; }
+        }
+        
+        @media (max-width: 900px) {
+            .cost-inputs-row { grid-template-columns: 1fr; }
+        }
+        
+        @media (max-width: 768px) {
+            .setup-row { flex-direction: column; align-items: stretch; gap: 10px; }
+            .input-inline { width: 100%; }
+            .input-inline.xlarge, .input-inline.medium { flex: 1; }
+            .products-grid { grid-template-columns: 1fr; }
+            .metrics-grid { grid-template-columns: 1fr; }
+            .results-cards-grid, .results-cards-grid.three-cards { grid-template-columns: 1fr; }
+            .cost-inputs-row { grid-template-columns: 1fr; }
+            .results-hero-number { font-size: 2.5rem; }
+            .results-hero-header { padding: 0 30px; }
+            .context-metrics { gap: 20px; }
+            .context-metric-value { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span id="titlePrefix">Sua</span> Vantagem <span class="highlight">Competitiva</span></h1>
+        
+        <div class="business-setup">
+            <div class="setup-row">
+                <div class="input-inline xlarge">
+                    <span class="input-label-inline">Nome do Negócio:</span>
+                    <input type="text" class="input" id="businessName" placeholder="" oninput="calculate()">
+                </div>
+                <div class="input-inline medium">
+                    <span class="input-label-inline">Quartos:</span>
+                    <input type="number" class="input" id="rooms" placeholder="" min="1" oninput="calculate()">
+                </div>
+                <div class="input-inline medium">
+                    <span class="input-label-inline">Estadia Média:</span>
+                    <input type="number" class="input" id="los" placeholder="" min="0.1" step="0.1" oninput="calculate()">
+                </div>
+                <div class="input-inline medium">
+                    <span class="input-label-inline">Moeda:</span>
+                    <select class="input" id="currency" onchange="calculate()">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="GBP">GBP</option>
+                        <option value="AUD">AUD</option>
+                        <option value="CAD">CAD</option>
+                        <option value="MXN">MXN</option>
+                        <option value="BRL">BRL</option>
+                        <option value="ARS">ARS</option>
+                        <option value="COP">COP</option>
+                        <option value="IDR">IDR</option>
+                        <option value="ISK">ISK</option>
+                        <option value="JPY">JPY</option>
+                        <option value="LKR">LKR</option>
+                        <option value="MYR">MYR</option>
+                        <option value="THB">THB</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="products-label">Adicionar Produtos Cloudbeds</div>
+            <div class="products-grid">
+                <div class="product-chip selected disabled" onclick="toggleProduct('pms')">
+                    <input type="checkbox" id="pms-check" checked disabled>
+                    <span>PMS</span>
+                </div>
+                <div class="product-chip" onclick="toggleProduct('distribution')">
+                    <input type="checkbox" id="distribution-check">
+                    <span>Distribuição</span>
+                </div>
+                <div class="product-chip" onclick="toggleProduct('experience')">
+                    <input type="checkbox" id="experience-check">
+                    <span>Experiência</span>
+                </div>
+                <div class="product-chip" onclick="toggleProduct('revenue')">
+                    <input type="checkbox" id="revenue-check">
+                    <span>Marketing de Receita</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="transformation-header dimmed">
+            <div class="transformation-title">Múltiplas Alavancas de Receita, Um Único Resultado</div>
+            <div class="transformation-subtitle">Ajuste os controles para modelar seu crescimento</div>
+            <div class="period-toggle">
+                <span class="toggle-label active" id="monthlyLabel">Mensal</span>
+                <div class="toggle-switch" id="periodToggle" onclick="togglePeriod()">
+                    <div class="toggle-slider"></div>
+                </div>
+                <span class="toggle-label" id="annualLabel">Anual</span>
+            </div>
+        </div>
+        
+        <div class="metrics-grid">
+            <!-- Ocupação -->
+            <div class="metric-column occupancy dimmed">
+                <div class="metric-name">Ocupação %</div>
+                <div class="metric-section">
+                    <div class="current-goal-row">
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Atual<span class="required-asterisk">*</span></div>
+                            <input type="number" class="current-input" id="occupancy" placeholder="" min="0" max="100" step="0.1" oninput="calculate()" onblur="validateOccupancy()">
+                        </div>
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Meta</div>
+                            <input type="number" class="goal-input" id="occupancyGoal" placeholder="" min="0" max="100" step="0.1" oninput="calculate()" onblur="validateOccupancyGoal()">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Estado Atual</div>
+                    <div class="pain-value" id="occupancyPain">—</div>
+                    <div class="pain-desc" id="occupancyPainDesc">noites vazias/mês</div>
+                    <div class="pain-value" id="occupancyPain2" style="margin-top: 8px;">—</div>
+                    <div class="pain-desc">reservas necessárias para lotação</div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Modele Seu Crescimento</div>
+                    <div class="lift-display" id="occupancyLiftDisplay"></div>
+                    <div class="pdf-metric-projection">
+                        <div class="pdf-projection-label">Ocupação Projetada</div>
+                        <div class="pdf-projection-value" id="occupancyProjected">—</div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-marker marker-goal" id="occupancyGoalMarker" style="display:none;"></div>
+                        <div class="slider-marker marker-avg-range" id="occupancyAvgMarker" style="display:none;"></div>
+                        <input type="range" class="slider" id="occupancySlider" min="0" max="100" value="0" step="0.1" tabindex="-1" oninput="calculate()">
+                    </div>
+                    <div class="slider-labels">
+                        <span id="occupancyMinLabel">—</span>
+                        <span id="occupancyMaxLabel">100%</span>
+                    </div>
+                    <div class="slider-legend">
+                        <div class="legend-item"><div class="legend-marker avg"></div><span>Impacto Cloudbeds*</span></div>
+                        <div class="legend-item"><div class="legend-marker goal"></div><span>Meta</span></div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label" id="occupancyImpactLabel">Impacto no Resultado Final</div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="occupancyImpactNum1">—</span>
+                        <span class="impact-label" id="occupancyImpactLabel1"></span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="occupancyImpactNum2">—</span>
+                        <span class="impact-label" id="occupancyImpactLabel2"></span>
+                    </div>
+                    <div class="impact-formula" id="occupancyFormula"></div>
+                    <div class="impact-disclaimer">*Baseado em melhorias médias de clientes no primeiro ano. O impacto real varia conforme a região, produtos selecionados e métricas base.</div>
+                </div>
+            </div>
+            
+            <!-- ADR -->
+            <div class="metric-column adr dimmed">
+                <div class="metric-name">Diária Média <span class="metric-name-sub">(ADR)</span></div>
+                <div class="metric-section">
+                    <div class="current-goal-row">
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Atual<span class="required-asterisk">*</span></div>
+                            <input type="number" class="current-input" id="adr" placeholder="" min="0" step="0.01" oninput="calculate()" onblur="validateAdr()">
+                        </div>
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Meta</div>
+                            <input type="number" class="goal-input" id="adrGoal" placeholder="" min="0" step="0.01" oninput="calculate()" onblur="validateAdrGoal()">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Estado Atual</div>
+                    <div class="pain-value" id="adrPain">—</div>
+                    <div class="pain-desc" id="adrPainDesc">receita de quartos/mês</div>
+                    <div class="pain-value" id="adrPain2" style="margin-top: 8px;">—</div>
+                    <div class="pain-desc">receita por reserva</div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Modele Seu Crescimento</div>
+                    <div class="lift-display" id="adrLiftDisplay"></div>
+                    <div class="pdf-metric-projection">
+                        <div class="pdf-projection-label">ADR Projetado</div>
+                        <div class="pdf-projection-value" id="adrProjected">—</div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-marker marker-goal" id="adrGoalMarker" style="display:none;"></div>
+                        <div class="slider-marker marker-avg-range" id="adrAvgMarker" style="display:none;"></div>
+                        <input type="range" class="slider" id="adrSlider" min="0" max="100" value="0" step="0.01" tabindex="-1" oninput="calculate()">
+                    </div>
+                    <div class="slider-labels">
+                        <span id="adrMinLabel">—</span>
+                        <span id="adrMaxLabel">—</span>
+                    </div>
+                    <div class="slider-legend">
+                        <div class="legend-item"><div class="legend-marker avg"></div><span>Impacto Cloudbeds*</span></div>
+                        <div class="legend-item"><div class="legend-marker goal"></div><span>Meta</span></div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label" id="adrImpactLabel">Impacto no Resultado Final</div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="adrImpactNum1">—</span>
+                        <span class="impact-label" id="adrImpactLabel1"></span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="adrImpactNum2">—</span>
+                        <span class="impact-label" id="adrImpactLabel2"></span>
+                    </div>
+                    <div class="impact-formula" id="adrFormula"></div>
+                    <div class="impact-disclaimer">*Baseado em melhorias médias de clientes no primeiro ano. O impacto real varia conforme a região, produtos selecionados e métricas base.</div>
+                </div>
+            </div>
+            
+            <!-- Reservas Diretas -->
+            <div class="metric-column direct dimmed">
+                <div class="metric-name">Reservas Diretas %</div>
+                <div class="metric-section">
+                    <div class="current-goal-row">
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Atual</div>
+                            <input type="number" class="current-input" id="directBookings" placeholder="" min="0" max="100" step="0.1" oninput="calculate()" onblur="validateDirect()">
+                        </div>
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Meta</div>
+                            <input type="number" class="goal-input" id="directBookingsGoal" placeholder="" min="0" max="100" step="0.1" oninput="calculate()" onblur="validateDirectGoal()">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Estado Atual</div>
+                    <div class="pain-value" id="directPain">—</div>
+                    <div class="pain-desc" id="directPainDesc">pago em comissões OTA/mês</div>
+                    <div class="pain-value" id="directPain2" style="margin-top: 8px;">—</div>
+                    <div class="pain-desc">comissão por reserva OTA</div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Modele Seu Crescimento</div>
+                    <div class="lift-display" id="directLiftDisplay"></div>
+                    <div class="pdf-metric-projection">
+                        <div class="pdf-projection-label">Reserva Direta Projetada</div>
+                        <div class="pdf-projection-value" id="directProjected">—</div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-marker marker-goal" id="directGoalMarker" style="display:none;"></div>
+                        <div class="slider-marker marker-avg-range" id="directAvgMarker" style="display:none;"></div>
+                        <input type="range" class="slider" id="directSlider" min="0" max="100" value="0" step="0.1" tabindex="-1" oninput="calculate()">
+                    </div>
+                    <div class="slider-labels">
+                        <span id="directMinLabel">—</span>
+                        <span id="directMaxLabel">100%</span>
+                    </div>
+                    <div class="slider-legend">
+                        <div class="legend-item"><div class="legend-marker avg"></div><span>Impacto Cloudbeds*</span></div>
+                        <div class="legend-item"><div class="legend-marker goal"></div><span>Meta</span></div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label" id="directImpactLabel">Impacto no Resultado Final</div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="directImpactNum1">—</span>
+                        <span class="impact-label" id="directImpactLabel1"></span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="directImpactNum2">—</span>
+                        <span class="impact-label" id="directImpactLabel2"></span>
+                    </div>
+                    <div class="impact-formula" id="directFormula"></div>
+                    <div class="impact-disclaimer">*Baseado em melhorias médias de clientes no primeiro ano. O impacto real varia conforme a região, produtos selecionados e métricas base.</div>
+                </div>
+            </div>
+            
+            <!-- Receita Complementar -->
+            <div class="metric-column upsell dimmed">
+                <div class="metric-name">Receita Complementar <span class="metric-name-sub">(por Noite)</span></div>
+                <div class="metric-section">
+                    <div class="current-goal-row">
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Atual</div>
+                            <input type="number" class="current-input" id="ancillaryRevenue" placeholder="" min="0" step="0.01" oninput="calculate()" onblur="validateAncillary()">
+                        </div>
+                        <div class="current-goal-group">
+                            <div class="current-goal-label">Meta</div>
+                            <input type="number" class="goal-input" id="ancillaryRevenueGoal" placeholder="" min="0" step="0.01" oninput="calculate()" onblur="validateAncillaryGoal()">
+                        </div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Estado Atual</div>
+                    <div class="pain-value" id="ancillaryPain">—</div>
+                    <div class="pain-desc" id="ancillaryPainDesc">receita complementar/mês</div>
+                    <div class="pain-value" id="ancillaryPain2" style="margin-top: 8px;">—</div>
+                    <div class="pain-desc">complementar por estadia</div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label">Modele Seu Crescimento</div>
+                    <div class="lift-display" id="ancillaryLiftDisplay"></div>
+                    <div class="pdf-metric-projection">
+                        <div class="pdf-projection-label">Complementar Projetado por Noite</div>
+                        <div class="pdf-projection-value" id="ancillaryProjected">—</div>
+                    </div>
+                    <div class="slider-container">
+                        <div class="slider-marker marker-goal" id="ancillaryGoalMarker" style="display:none;"></div>
+                        <div class="slider-marker marker-avg-range" id="ancillaryAvgMarker" style="display:none;"></div>
+                        <input type="range" class="slider" id="ancillarySlider" min="0" max="100" value="0" step="0.01" tabindex="-1" oninput="calculate()">
+                    </div>
+                    <div class="slider-labels">
+                        <span id="ancillaryMinLabel">—</span>
+                        <span id="ancillaryMaxLabel">—</span>
+                    </div>
+                    <div class="slider-legend">
+                        <div class="legend-item"><div class="legend-marker avg"></div><span>Impacto Cloudbeds*</span></div>
+                        <div class="legend-item"><div class="legend-marker goal"></div><span>Meta</span></div>
+                    </div>
+                </div>
+                <div class="section-divider"></div>
+                <div class="metric-section">
+                    <div class="section-label" id="ancillaryImpactLabel">Impacto no Resultado Final</div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="ancillaryImpactNum1">—</span>
+                        <span class="impact-label" id="ancillaryImpactLabel1"></span>
+                    </div>
+                    <div class="impact-stat">
+                        <span class="impact-number" id="ancillaryImpactNum2">—</span>
+                        <span class="impact-label" id="ancillaryImpactLabel2"></span>
+                    </div>
+                    <div class="impact-formula" id="ancillaryFormula"></div>
+                    <div class="impact-disclaimer">*Baseado em melhorias médias de clientes no primeiro ano. O impacto real varia conforme a região, produtos selecionados e métricas base.</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Resultados -->
+        <div class="results-unified dimmed">
+            <div class="results-hero">
+                <div class="results-hero-header">
+                    <div class="results-hero-number" id="heroNumber">$0</div>
+                    <button class="download-btn" id="downloadBtn" onclick="openDownloadModal()" title="Baixar PDF">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="results-hero-title" id="heroTitle">Seu Aumento de Receita Anual Projetado</div>
+                <div class="results-hero-subtitle" id="heroSubtitle">Impacto mensal: $0</div>
+            </div>
+            
+            <div class="results-cards-grid three-cards">
+                <div class="result-card">
+                    <div class="result-card-label">Crescimento de Receita</div>
+                    <div class="result-card-value" id="cardRevenue">$0</div>
+                    <div class="result-card-desc" id="cardRevenueDesc">por ocupação, ADR e complementares</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-card-label">Quartos Ocupados</div>
+                    <div class="result-card-value" id="cardRooms">0</div>
+                    <div class="result-card-desc">noites de quarto adicionais/ano</div>
+                </div>
+                <div class="result-card" id="commissionSavingsCard" style="display: none;">
+                    <div class="result-card-label">Economia em Comissões</div>
+                    <div class="result-card-value" id="cardCommission">$0</div>
+                    <div class="result-card-desc">economizado em taxas OTA/ano</div>
+                </div>
+                <div class="result-card bottom-line-card">
+                    <div class="result-card-label">Resultado Final</div>
+                    <div class="result-card-value" id="cardBottomLine">$0</div>
+                    <div class="result-card-desc">impacto líquido no lucro/ano</div>
+                </div>
+            </div>
+            
+            <div class="cost-consideration">
+                <div class="cost-inputs-row">
+                    <div class="cost-input-group">
+                        <label class="cost-label">Custo Atual de Tecnologia</label>
+                        <div class="cost-input-wrapper">
+                            <span class="cost-currency" id="currentTechCostCurrency">$</span>
+                            <input type="number" class="cost-input" id="currentTechCost" placeholder="0" min="0" step="1" oninput="calculate()">
+                            <span class="cost-period">/mês</span>
+                        </div>
+                    </div>
+                    <div class="cost-input-group">
+                        <label class="cost-label">Assinatura Cloudbeds</label>
+                        <div class="cost-input-wrapper">
+                            <span class="cost-currency" id="cloudbedsSubscriptionCurrency">$</span>
+                            <input type="number" class="cost-input" id="cloudbedsSubscription" placeholder="0" min="0" step="1" oninput="calculate()">
+                            <span class="cost-period">/mês</span>
+                        </div>
+                    </div>
+                    <div class="cost-input-group">
+                        <label class="cost-label">N° de Ferramentas Substituídas</label>
+                        <div class="cost-input-wrapper">
+                            <input type="number" class="cost-input" id="toolsReplaced" placeholder="0" min="0" step="1" oninput="calculate()" style="text-align: center;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-context">
+                <div class="context-primary" id="contextPrimary">Seu impacto projetado no resultado final</div>
+                <div class="context-metrics" id="contextMetrics">
+                    <div class="context-metric">
+                        <div class="context-metric-value" id="contextRevPAR">$0</div>
+                        <div class="context-metric-label">Aumento de RevPAR</div>
+                    </div>
+                    <div class="context-metric">
+                        <div class="context-metric-value" id="contextROI">0%</div>
+                        <div class="context-metric-label">Aumento de Receita</div>
+                    </div>
+                    <div class="context-metric">
+                        <div class="context-metric-value" id="contextReservations">0</div>
+                        <div class="context-metric-label">Reservas Adicionais/Ano</div>
+                    </div>
+                    <div class="context-metric" id="paybackMetric" style="display: none;">
+                        <div class="context-metric-value" id="contextPayback">0</div>
+                        <div class="context-metric-label">Meses de Retorno</div>
+                    </div>
+                    <div class="context-metric" id="reservationsCostMetric" style="display: none;">
+                        <div class="context-metric-value" id="contextReservationsCost">0</div>
+                        <div class="context-metric-label">Reservas/Mês para Cobrir Custo</div>
+                    </div>
+                    <div class="context-metric" id="toolsConsolidatedMetric" style="display: none;">
+                        <div class="context-metric-value" id="contextToolsConsolidated">0</div>
+                        <div class="context-metric-label">Ferramentas Consolidadas</div>
+                    </div>
+                </div>
+                
+                <div class="pdf-disclaimer-integrated">
+                    * Estas projeções são estimativas baseadas em melhorias médias de clientes no primeiro ano e são fornecidas apenas para fins ilustrativos. Embora estejamos comprometidos com seu sucesso, <strong>a Cloudbeds não garante resultados específicos.</strong> Os resultados reais variam significativamente conforme o tipo de propriedade, condições de mercado, métricas base, esforço de implementação e fatores operacionais. Os resultados individuais podem ser superiores ou inferiores aos projetados. Estamos aqui para ser seu parceiro em cada etapa para ajudar a maximizar seu potencial.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Download -->
+    <div class="modal-overlay" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-title">Baixar Sua Projeção de ROI</div>
+            <div class="modal-subtitle">Isso criará um relatório PDF completo com todos os seus dados e projeções.</div>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeDownloadModal()">Cancelar</button>
+                <button class="modal-btn modal-btn-download" onclick="downloadPDF()">Baixar PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        let isAnnual = false;
+        
+        function snapToMarker(value, min, max, markers) {
+            const range = max - min;
+            const snapThreshold = range * 0.02;
+            for (const marker of markers) {
+                if (Math.abs(value - marker) <= snapThreshold) return marker;
+            }
+            return value;
+        }
+        
+        function togglePeriod() {
+            isAnnual = !isAnnual;
+            const toggle = document.getElementById('periodToggle');
+            const monthlyLabel = document.getElementById('monthlyLabel');
+            const annualLabel = document.getElementById('annualLabel');
+            
+            if (isAnnual) {
+                toggle.classList.add('annual');
+                monthlyLabel.classList.remove('active');
+                annualLabel.classList.add('active');
+            } else {
+                toggle.classList.remove('annual');
+                monthlyLabel.classList.add('active');
+                annualLabel.classList.remove('active');
+            }
+            calculate();
+        }
+        
+        function getProductImpact() {
+            const distribution = document.getElementById('distribution-check').checked;
+            const experience = document.getElementById('experience-check').checked;
+            const revenue = document.getElementById('revenue-check').checked;
+            
+            let occupancyGapClosure = 5, directGapClosure = 3, adrLift = 3, ancillaryLift = 3;
+            
+            if (distribution) { occupancyGapClosure += 8; directGapClosure += 17; adrLift += 2; ancillaryLift += 7; }
+            if (experience) { occupancyGapClosure += 7; directGapClosure += 7; adrLift += 5; ancillaryLift += 30; }
+            if (revenue) { occupancyGapClosure += 10; directGapClosure += 13; adrLift += 10; ancillaryLift += 10; }
+            
+            return { occupancyGapClosure, directGapClosure, adrLift, ancillaryLift };
+        }
+        
+        function toggleProduct(product) {
+            if (product === 'pms') return;
+            const checkbox = document.getElementById(product + '-check');
+            const chip = checkbox.parentElement;
+            checkbox.checked = !checkbox.checked;
+            chip.classList.toggle('selected', checkbox.checked);
+            calculate();
+        }
+        
+        function getNumeric(id) {
+            const el = document.getElementById(id);
+            if (!el) return 0;
+            return el.value ? parseFloat(el.value) : 0;
+        }
+        
+        function hasValue(id) {
+            const el = document.getElementById(id);
+            if (!el) return false;
+            return el.value.trim() !== '';
+        }
+        
+        function formatCurrency(amount) {
+            if (amount === 0) return getCurrencySymbol() + '0';
+            return getCurrencySymbol() + Math.round(amount).toLocaleString('pt-BR');
+        }
+        
+        function getCurrencySymbol() {
+            const currency = document.getElementById('currency').value;
+            const symbols = {
+                'USD': '$', 'EUR': '€', 'GBP': '£', 'CAD': 'C$', 'AUD': 'A$',
+                'MXN': 'MX$', 'BRL': 'R$', 'ARS': 'ARS$', 'COP': 'COP$',
+                'IDR': 'Rp', 'ISK': 'kr', 'JPY': '¥', 'LKR': 'Rs', 'MYR': 'RM', 'THB': '฿'
+            };
+            return symbols[currency] || '$';
+        }
+        
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            return Math.round(num).toLocaleString('pt-BR');
+        }
+        
+        function calculate() {
+            const rooms = getNumeric('rooms');
+            const currentOccupancy = getNumeric('occupancy');
+            const occupancyGoal = getNumeric('occupancyGoal');
+            const currentAdr = getNumeric('adr');
+            const adrGoal = getNumeric('adrGoal');
+            const currentDirect = getNumeric('directBookings');
+            const directGoal = getNumeric('directBookingsGoal');
+            const currentAncillary = getNumeric('ancillaryRevenue');
+            const ancillaryGoal = getNumeric('ancillaryRevenueGoal');
+            const businessName = document.getElementById('businessName').value.trim();
+            const los = getNumeric('los');
+            
+            const currencySymbol = getCurrencySymbol();
+            const currentTechCostCurrency = document.getElementById('currentTechCostCurrency');
+            const cloudbedsSubscriptionCurrency = document.getElementById('cloudbedsSubscriptionCurrency');
+            if (currentTechCostCurrency) currentTechCostCurrency.textContent = currencySymbol;
+            if (cloudbedsSubscriptionCurrency) cloudbedsSubscriptionCurrency.textContent = currencySymbol;
+            
+            const setupComplete = businessName && rooms > 0 && los > 0;
+            const metricsComplete = hasValue('occupancy') && hasValue('adr');
+            
+            document.querySelectorAll('.metric-column').forEach(column => {
+                column.classList.toggle('dimmed', !setupComplete);
+            });
+            document.querySelector('.transformation-header').classList.toggle('dimmed', !setupComplete);
+            document.querySelector('.results-unified').classList.toggle('dimmed', !(setupComplete && metricsComplete));
+            
+            const resultsCardsGrid = document.querySelector('.results-cards-grid');
+            const commissionSavingsCard = document.getElementById('commissionSavingsCard');
+            if (resultsCardsGrid && commissionSavingsCard) {
+                if (hasValue('directBookings')) {
+                    commissionSavingsCard.style.display = 'block';
+                    resultsCardsGrid.classList.remove('three-cards');
+                } else {
+                    commissionSavingsCard.style.display = 'none';
+                    resultsCardsGrid.classList.add('three-cards');
+                }
+            }
+            
+            const impact = getProductImpact();
+            
+            // OCCUPANCY SLIDER
+            const occSlider = document.getElementById('occupancySlider');
+            if (hasValue('occupancy') && currentOccupancy > 0) {
+                const occupancyGap = 100 - currentOccupancy;
+                const occupancyIncrease = occupancyGap * (impact.occupancyGapClosure / 100);
+                const suggestedOccupancy = Math.min(Math.round((currentOccupancy + occupancyIncrease) * 10) / 10, 100);
+                occSlider.min = currentOccupancy; occSlider.max = 100;
+                if (occSlider.value < currentOccupancy) occSlider.value = currentOccupancy;
+                const markers = [suggestedOccupancy];
+                if (occupancyGoal > currentOccupancy && occupancyGoal <= 100) markers.push(occupancyGoal);
+                const snapped = snapToMarker(parseFloat(occSlider.value), currentOccupancy, 100, markers);
+                if (snapped !== parseFloat(occSlider.value)) occSlider.value = snapped;
+                document.getElementById('occupancyMinLabel').textContent = currentOccupancy.toFixed(1) + '%';
+                if (occupancyGoal > 0 && occupancyGoal > currentOccupancy) {
+                    const gm = document.getElementById('occupancyGoalMarker');
+                    gm.style.left = (((occupancyGoal - currentOccupancy) / (100 - currentOccupancy)) * 100).toFixed(4) + '%';
+                    gm.style.display = 'block';
+                } else { document.getElementById('occupancyGoalMarker').style.display = 'none'; }
+                const am = document.getElementById('occupancyAvgMarker');
+                am.style.left = (((suggestedOccupancy - currentOccupancy) / (100 - currentOccupancy)) * 100).toFixed(4) + '%';
+                am.style.display = 'block';
+            } else {
+                occSlider.value = 0; occSlider.min = 0; occSlider.max = 100;
+                document.getElementById('occupancyMinLabel').textContent = '—';
+                document.getElementById('occupancyGoalMarker').style.display = 'none';
+                document.getElementById('occupancyAvgMarker').style.display = 'none';
+            }
+            
+            // ADR SLIDER
+            const adrSlider = document.getElementById('adrSlider');
+            if (hasValue('adr') && currentAdr > 0) {
+                const adrIncrease = currentAdr * (impact.adrLift / 100);
+                const suggestedAdr = Math.round((currentAdr + adrIncrease) * 100) / 100;
+                const adrMultiplier = rooms <= 20 ? 2 : 1.5;
+                let adrMax = currentAdr * adrMultiplier;
+                if (adrGoal > adrMax) adrMax = Math.max(adrMax, (2 * adrGoal) - currentAdr);
+                adrSlider.min = currentAdr; adrSlider.max = adrMax;
+                if (adrSlider.value < currentAdr) adrSlider.value = currentAdr;
+                const markers = [suggestedAdr];
+                if (adrGoal > currentAdr && adrGoal <= adrMax) markers.push(adrGoal);
+                const snapped = snapToMarker(parseFloat(adrSlider.value), currentAdr, adrMax, markers);
+                if (snapped !== parseFloat(adrSlider.value)) adrSlider.value = snapped;
+                document.getElementById('adrMinLabel').textContent = formatCurrency(currentAdr);
+                document.getElementById('adrMaxLabel').textContent = formatCurrency(adrMax);
+                if (adrGoal > 0 && adrGoal > currentAdr && adrGoal <= adrMax) {
+                    const gm = document.getElementById('adrGoalMarker');
+                    gm.style.left = (((adrGoal - currentAdr) / (adrMax - currentAdr)) * 100).toFixed(4) + '%';
+                    gm.style.display = 'block';
+                } else { document.getElementById('adrGoalMarker').style.display = 'none'; }
+                const am = document.getElementById('adrAvgMarker');
+                am.style.left = (((suggestedAdr - currentAdr) / (adrMax - currentAdr)) * 100).toFixed(4) + '%';
+                am.style.display = 'block';
+            } else {
+                adrSlider.value = 0; adrSlider.min = 0; adrSlider.max = 100;
+                document.getElementById('adrMinLabel').textContent = '—';
+                document.getElementById('adrMaxLabel').textContent = '—';
+                document.getElementById('adrGoalMarker').style.display = 'none';
+                document.getElementById('adrAvgMarker').style.display = 'none';
+            }
+            
+            // DIRECT SLIDER
+            const directSlider = document.getElementById('directSlider');
+            if (hasValue('directBookings') && currentDirect > 0) {
+                const directGap = 100 - currentDirect;
+                const directIncrease = directGap * (impact.directGapClosure / 100);
+                const suggestedDirect = Math.min(Math.round((currentDirect + directIncrease) * 10) / 10, 100);
+                directSlider.min = currentDirect; directSlider.max = 100;
+                if (directSlider.value < currentDirect) directSlider.value = currentDirect;
+                const markers = [suggestedDirect];
+                if (directGoal > currentDirect && directGoal <= 100) markers.push(directGoal);
+                const snapped = snapToMarker(parseFloat(directSlider.value), currentDirect, 100, markers);
+                if (snapped !== parseFloat(directSlider.value)) directSlider.value = snapped;
+                document.getElementById('directMinLabel').textContent = currentDirect.toFixed(1) + '%';
+                if (directGoal > 0 && directGoal > currentOccupancy) {
+                    const gm = document.getElementById('directGoalMarker');
+                    gm.style.left = (((directGoal - currentDirect) / (100 - currentDirect)) * 100).toFixed(4) + '%';
+                    gm.style.display = 'block';
+                } else { document.getElementById('directGoalMarker').style.display = 'none'; }
+                const am = document.getElementById('directAvgMarker');
+                am.style.left = (((suggestedDirect - currentDirect) / (100 - currentDirect)) * 100).toFixed(4) + '%';
+                am.style.display = 'block';
+            } else {
+                directSlider.value = 0; directSlider.min = 0; directSlider.max = 100;
+                document.getElementById('directMinLabel').textContent = '—';
+                document.getElementById('directGoalMarker').style.display = 'none';
+                document.getElementById('directAvgMarker').style.display = 'none';
+            }
+            
+            // ANCILLARY SLIDER
+            const ancillarySlider = document.getElementById('ancillarySlider');
+            if (hasValue('ancillaryRevenue') && currentAncillary >= 0) {
+                const ancillaryIncrease = currentAncillary * (impact.ancillaryLift / 100);
+                const suggestedAncillary = Math.round((currentAncillary + ancillaryIncrease) * 100) / 100;
+                let ancillaryMax = currentAncillary * 2;
+                if (currentAdr > 0 && currentAncillary < (currentAdr * 0.5)) ancillaryMax = Math.max(ancillaryMax, currentAdr / 2);
+                if (ancillaryGoal > currentAncillary * 2) ancillaryMax = Math.max(ancillaryMax, (2 * ancillaryGoal) - currentAncillary);
+                ancillarySlider.min = currentAncillary; ancillarySlider.max = ancillaryMax;
+                if (ancillarySlider.value < currentAncillary) ancillarySlider.value = currentAncillary;
+                const markers = [suggestedAncillary];
+                if (ancillaryGoal > currentAncillary && ancillaryGoal <= ancillaryMax) markers.push(ancillaryGoal);
+                const snapped = snapToMarker(parseFloat(ancillarySlider.value), currentAncillary, ancillaryMax, markers);
+                if (snapped !== parseFloat(ancillarySlider.value)) ancillarySlider.value = snapped;
+                document.getElementById('ancillaryMinLabel').textContent = formatCurrency(currentAncillary);
+                document.getElementById('ancillaryMaxLabel').textContent = formatCurrency(ancillaryMax);
+                if (ancillaryGoal > 0 && ancillaryGoal > currentAncillary && ancillaryGoal <= ancillaryMax) {
+                    const gm = document.getElementById('ancillaryGoalMarker');
+                    gm.style.left = (((ancillaryGoal - currentAncillary) / (ancillaryMax - currentAncillary)) * 100).toFixed(4) + '%';
+                    gm.style.display = 'block';
+                } else { document.getElementById('ancillaryGoalMarker').style.display = 'none'; }
+                const am = document.getElementById('ancillaryAvgMarker');
+                am.style.left = (((suggestedAncillary - currentAncillary) / (ancillaryMax - currentAncillary)) * 100).toFixed(4) + '%';
+                am.style.display = 'block';
+            } else {
+                ancillarySlider.value = 0; ancillarySlider.min = 0; ancillarySlider.max = 100;
+                document.getElementById('ancillaryMinLabel').textContent = '—';
+                document.getElementById('ancillaryMaxLabel').textContent = '—';
+                document.getElementById('ancillaryGoalMarker').style.display = 'none';
+                document.getElementById('ancillaryAvgMarker').style.display = 'none';
+            }
+            
+            const occupancyValue = getNumeric('occupancySlider');
+            const adrValue = getNumeric('adrSlider');
+            const directValue = getNumeric('directSlider');
+            const ancillaryValue = getNumeric('ancillarySlider');
+            
+            const COMMISSION_RATE = 0.18;
+            const periodDivider = isAnnual ? 1 : 12;
+            const periodMultiplier = isAnnual ? 1 : 1/12;
+            const periodLabel = isAnnual ? 'ano' : 'mês';
+            const periodLabelCap = isAnnual ? 'Anual' : 'Mensal';
+            
+            const baseOccupancy = currentOccupancy / 100;
+            const futureOccupancy = occupancyValue / 100;
+            const baseRoomNights = rooms && baseOccupancy ? rooms * 365 * baseOccupancy : 0;
+            const futureRoomNights = rooms && futureOccupancy ? rooms * 365 * futureOccupancy : 0;
+            const baseRoomRevenue = baseRoomNights && currentAdr ? baseRoomNights * currentAdr : 0;
+            const futureRoomRevenue = futureRoomNights && adrValue ? futureRoomNights * adrValue : 0;
+            const baseDirectPct = currentDirect / 100;
+            const futureDirectPct = directValue / 100;
+            const baseCommissions = baseRoomRevenue && baseDirectPct ? baseRoomRevenue * (1 - baseDirectPct) * COMMISSION_RATE : 0;
+            const futureCommissions = futureRoomRevenue && futureDirectPct ? futureRoomRevenue * (1 - futureDirectPct) * COMMISSION_RATE : 0;
+            const baseAncillaryTotal = baseRoomNights && currentAncillary ? baseRoomNights * currentAncillary : 0;
+            const futureAncillaryTotal = futureRoomNights && ancillaryValue ? futureRoomNights * ancillaryValue : 0;
+            
+            // LIFT DISPLAYS
+            if (hasValue('occupancy') && currentOccupancy > 0) {
+                const el = document.getElementById('occupancyLiftDisplay');
+                const pr = document.getElementById('occupancyProjected');
+                if (el) el.textContent = occupancyValue === currentOccupancy ? '' : occupancyValue.toFixed(1) + '% Ocupação';
+                if (pr) pr.textContent = occupancyValue.toFixed(1) + '%';
+            } else {
+                const el = document.getElementById('occupancyLiftDisplay');
+                const pr = document.getElementById('occupancyProjected');
+                if (el) el.textContent = 'Insira a ocupação atual';
+                if (pr) pr.textContent = '—';
+            }
+            
+            if (hasValue('adr') && currentAdr > 0) {
+                const el = document.getElementById('adrLiftDisplay');
+                const pr = document.getElementById('adrProjected');
+                if (el) el.textContent = adrValue === currentAdr ? '' : formatCurrency(adrValue) + ' ADR';
+                if (pr) pr.textContent = formatCurrency(adrValue);
+            } else {
+                const el = document.getElementById('adrLiftDisplay');
+                const pr = document.getElementById('adrProjected');
+                if (el) el.textContent = 'Insira o ADR atual';
+                if (pr) pr.textContent = '—';
+            }
+            
+            if (hasValue('directBookings') && currentDirect > 0) {
+                const el = document.getElementById('directLiftDisplay');
+                const pr = document.getElementById('directProjected');
+                if (el) el.textContent = directValue === currentDirect ? '' : directValue.toFixed(1) + '% Reserva Direta';
+                if (pr) pr.textContent = directValue.toFixed(1) + '%';
+            } else {
+                const el = document.getElementById('directLiftDisplay');
+                const pr = document.getElementById('directProjected');
+                if (el) el.textContent = 'Insira o % atual';
+                if (pr) pr.textContent = '—';
+            }
+            
+            if (hasValue('ancillaryRevenue')) {
+                const el = document.getElementById('ancillaryLiftDisplay');
+                const pr = document.getElementById('ancillaryProjected');
+                if (el) el.textContent = (ancillaryValue === currentAncillary || ancillaryValue === 0) ? '' : formatCurrency(ancillaryValue) + ' por Noite';
+                if (pr) pr.textContent = formatCurrency(ancillaryValue);
+            } else {
+                const el = document.getElementById('ancillaryLiftDisplay');
+                const pr = document.getElementById('ancillaryProjected');
+                if (el) el.textContent = 'Insira a receita atual';
+                if (pr) pr.textContent = '—';
+            }
+            
+            // BUSINESS NAME
+            if (businessName) {
+                document.getElementById('titlePrefix').textContent = 'A Vantagem de ' + businessName + ':';
+            } else {
+                document.getElementById('titlePrefix').textContent = 'Sua';
+            }
+            
+            // PAIN VALUES
+            const occupancyPainDescEl = document.getElementById('occupancyPainDesc');
+            const adrPainDescEl = document.getElementById('adrPainDesc');
+            const directPainDescEl = document.getElementById('directPainDesc');
+            const ancillaryPainDescEl = document.getElementById('ancillaryPainDesc');
+            if (occupancyPainDescEl) occupancyPainDescEl.textContent = `noites vazias/${periodLabel}`;
+            if (adrPainDescEl) adrPainDescEl.textContent = `receita de quartos/${periodLabel}`;
+            if (directPainDescEl) directPainDescEl.textContent = `pago em comissões OTA/${periodLabel}`;
+            if (ancillaryPainDescEl) ancillaryPainDescEl.textContent = `receita complementar/${periodLabel}`;
+            
+            if (hasValue('rooms') && rooms > 0 && hasValue('occupancy') && baseOccupancy) {
+                const emptyRoomNights = rooms * 365 * (1 - baseOccupancy);
+                const emptyPeriod = emptyRoomNights / periodDivider;
+                document.getElementById('occupancyPain').textContent = formatNumber(emptyPeriod);
+                if (hasValue('los') && los > 0) {
+                    document.getElementById('occupancyPain2').textContent = formatNumber(emptyPeriod / los);
+                } else { document.getElementById('occupancyPain2').textContent = '—'; }
+            } else {
+                document.getElementById('occupancyPain').textContent = '—';
+                document.getElementById('occupancyPain2').textContent = '—';
+            }
+            
+            if (hasValue('adr') && baseRoomRevenue) {
+                document.getElementById('adrPain').textContent = formatCurrency(baseRoomRevenue / periodDivider);
+                if (hasValue('los') && los > 0) {
+                    document.getElementById('adrPain2').textContent = formatCurrency(currentAdr * los);
+                } else { document.getElementById('adrPain2').textContent = '—'; }
+            } else {
+                document.getElementById('adrPain').textContent = '—';
+                document.getElementById('adrPain2').textContent = '—';
+            }
+            
+            if (hasValue('directBookings') && baseCommissions) {
+                document.getElementById('directPain').textContent = formatCurrency(baseCommissions / periodDivider);
+                if (hasValue('los') && los > 0 && baseRoomNights > 0) {
+                    const totalRes = baseRoomNights / los;
+                    const otaRes = totalRes * (1 - baseDirectPct);
+                    document.getElementById('directPain2').textContent = formatCurrency(baseCommissions / otaRes);
+                } else { document.getElementById('directPain2').textContent = '—'; }
+            } else {
+                document.getElementById('directPain').textContent = '—';
+                document.getElementById('directPain2').textContent = '—';
+            }
+            
+            if (hasValue('ancillaryRevenue') && baseAncillaryTotal) {
+                document.getElementById('ancillaryPain').textContent = formatCurrency(baseAncillaryTotal / periodDivider);
+                if (hasValue('los') && los > 0) {
+                    document.getElementById('ancillaryPain2').textContent = formatCurrency(currentAncillary * los);
+                } else { document.getElementById('ancillaryPain2').textContent = '—'; }
+            } else {
+                document.getElementById('ancillaryPain').textContent = '—';
+                document.getElementById('ancillaryPain2').textContent = '—';
+            }
+            
+            // IMPACT LABELS
+            const impactTitle = `Impacto ${periodLabelCap} no Resultado Final`;
+            document.getElementById('occupancyImpactLabel').textContent = impactTitle;
+            document.getElementById('adrImpactLabel').textContent = impactTitle;
+            document.getElementById('directImpactLabel').textContent = impactTitle;
+            document.getElementById('ancillaryImpactLabel').textContent = impactTitle;
+            
+            // OCCUPANCY IMPACT
+            if (hasValue('occupancy') && futureOccupancy && currentOccupancy) {
+                const roomsFilled = futureRoomNights - baseRoomNights;
+                document.getElementById('occupancyImpactNum1').textContent = (roomsFilled >= 0 ? '+' : '') + formatNumber(roomsFilled / periodDivider);
+                document.getElementById('occupancyImpactLabel1').textContent = `noites ocupadas/${periodLabel}`;
+                if (hasValue('adr') && adrValue && currentAdr) {
+                    const rev = (roomsFilled * adrValue) * periodMultiplier;
+                    document.getElementById('occupancyImpactNum2').textContent = (rev >= 0 ? '+' : '') + formatCurrency(rev);
+                    document.getElementById('occupancyImpactLabel2').textContent = `receita incremental de quartos`;
+                    document.getElementById('occupancyFormula').textContent = `Noites adicionais × ADR futuro (${periodLabel})`;
+                } else {
+                    document.getElementById('occupancyImpactNum2').textContent = '';
+                    document.getElementById('occupancyImpactLabel2').textContent = '';
+                    document.getElementById('occupancyFormula').textContent = '';
+                }
+            } else {
+                document.getElementById('occupancyImpactNum1').textContent = '—';
+                document.getElementById('occupancyImpactLabel1').textContent = '';
+                document.getElementById('occupancyImpactNum2').textContent = '';
+                document.getElementById('occupancyImpactLabel2').textContent = '';
+                document.getElementById('occupancyFormula').textContent = '';
+            }
+            
+            // ADR IMPACT
+            if (hasValue('adr') && adrValue && currentAdr) {
+                const gain = adrValue - currentAdr;
+                if (hasValue('los') && los > 0) {
+                    document.getElementById('adrImpactNum1').textContent = (gain * los >= 0 ? '+' : '') + formatCurrency(gain * los);
+                    document.getElementById('adrImpactLabel1').textContent = 'receita por reserva';
+                } else {
+                    document.getElementById('adrImpactNum1').textContent = (gain >= 0 ? '+' : '') + formatCurrency(gain);
+                    document.getElementById('adrImpactLabel1').textContent = 'por noite';
+                }
+                const incRev = ((adrValue - currentAdr) * baseRoomNights) * periodMultiplier;
+                document.getElementById('adrImpactNum2').textContent = (incRev >= 0 ? '+' : '') + formatCurrency(incRev);
+                document.getElementById('adrImpactLabel2').textContent = `receita de quartos`;
+                document.getElementById('adrFormula').textContent = `Aumento ADR × Noites base (${periodLabel})`;
+            } else {
+                document.getElementById('adrImpactNum1').textContent = '—';
+                document.getElementById('adrImpactLabel1').textContent = '';
+                document.getElementById('adrImpactNum2').textContent = '—';
+                document.getElementById('adrImpactLabel2').textContent = '';
+                document.getElementById('adrFormula').textContent = '';
+            }
+            
+            // DIRECT IMPACT
+            if (hasValue('directBookings') && futureDirectPct && currentDirect) {
+                if (directValue !== currentDirect) {
+                    const futureCommOld = futureRoomRevenue * (1 - baseDirectPct) * COMMISSION_RATE;
+                    const futureCommNew = futureRoomRevenue * (1 - futureDirectPct) * COMMISSION_RATE;
+                    const commSavings = futureCommOld - futureCommNew;
+                    const otaOld = futureRoomNights * (1 - baseDirectPct);
+                    const otaNew = futureRoomNights * (1 - futureDirectPct);
+                    const shifted = (otaOld - otaNew) / (los > 0 ? los : 1);
+                    document.getElementById('directImpactNum1').textContent = (shifted >= 0 ? '+' : '') + formatNumber(shifted / periodDivider);
+                    document.getElementById('directImpactLabel1').textContent = `reservas convertidas para diretas`;
+                    document.getElementById('directImpactNum2').textContent = (commSavings >= 0 ? '+' : '') + formatCurrency(commSavings * periodMultiplier);
+                    document.getElementById('directImpactLabel2').textContent = `economia em comissões`;
+                    document.getElementById('directFormula').textContent = `Mudança no % direto × Receita futura × 18% (${periodLabel})`;
+                } else {
+                    document.getElementById('directImpactNum1').textContent = '';
+                    document.getElementById('directImpactLabel1').textContent = '';
+                    document.getElementById('directImpactNum2').textContent = '';
+                    document.getElementById('directImpactLabel2').textContent = '';
+                    document.getElementById('directFormula').textContent = '';
+                }
+            } else {
+                document.getElementById('directImpactNum1').textContent = '—';
+                document.getElementById('directImpactLabel1').textContent = '';
+                document.getElementById('directImpactNum2').textContent = '—';
+                document.getElementById('directImpactLabel2').textContent = '';
+                document.getElementById('directFormula').textContent = '';
+            }
+            
+            // ANCILLARY IMPACT
+            if (hasValue('ancillaryRevenue') && ancillaryValue !== null && currentAncillary !== null) {
+                if (hasValue('los') && los > 0) {
+                    const gain = (ancillaryValue - currentAncillary) * los;
+                    document.getElementById('ancillaryImpactNum1').textContent = (gain >= 0 ? '+' : '') + formatCurrency(gain);
+                    document.getElementById('ancillaryImpactLabel1').textContent = 'complementar por estadia';
+                } else {
+                    const gain = ancillaryValue - currentAncillary;
+                    document.getElementById('ancillaryImpactNum1').textContent = (gain >= 0 ? '+' : '') + formatCurrency(gain);
+                    document.getElementById('ancillaryImpactLabel1').textContent = 'por noite';
+                }
+                const ancInc = (futureAncillaryTotal - baseAncillaryTotal) * periodMultiplier;
+                document.getElementById('ancillaryImpactNum2').textContent = (ancInc >= 0 ? '+' : '') + formatCurrency(ancInc);
+                document.getElementById('ancillaryImpactLabel2').textContent = `receita complementar`;
+                document.getElementById('ancillaryFormula').textContent = `Aumento complementar por noite × Noites futuras (${periodLabel})`;
+            } else {
+                document.getElementById('ancillaryImpactNum1').textContent = '—';
+                document.getElementById('ancillaryImpactLabel1').textContent = '';
+                document.getElementById('ancillaryImpactNum2').textContent = '—';
+                document.getElementById('ancillaryImpactLabel2').textContent = '';
+                document.getElementById('ancillaryFormula').textContent = '';
+            }
+            
+            // RESULTS
+            if (!hasValue('rooms') || !rooms || !hasValue('occupancy') || !currentOccupancy || !hasValue('adr') || !currentAdr) return;
+            
+            const hasAncillary = hasValue('ancillaryRevenue');
+            const hasDirect = hasValue('directBookings');
+            
+            const occupancyImpact = (futureRoomNights - baseRoomNights) * adrValue;
+            const adrImpact = (adrValue - currentAdr) * baseRoomNights;
+            const incrementalRevenue = occupancyImpact + adrImpact;
+            
+            let commissionSavings = 0;
+            if (hasDirect && directValue !== currentDirect) {
+                commissionSavings = (futureRoomRevenue * (1 - baseDirectPct) * COMMISSION_RATE) - (futureRoomRevenue * (1 - futureDirectPct) * COMMISSION_RATE);
+            }
+            
+            const ancillaryIncrease = hasAncillary ? (futureAncillaryTotal - baseAncillaryTotal) : 0;
+            const totalGainAnnual = incrementalRevenue + commissionSavings + ancillaryIncrease;
+            const totalGainMonthly = totalGainAnnual / 12;
+            const roomsFilled = futureRoomNights - baseRoomNights;
+            
+            const currentTechCost = getNumeric('currentTechCost') * 12;
+            const cloudbedsSubscription = getNumeric('cloudbedsSubscription') * 12;
+            const costDifference = cloudbedsSubscription - currentTechCost;
+            const netBottomLine = totalGainAnnual - costDifference;
+            
+            document.getElementById('heroNumber').textContent = formatCurrency(totalGainAnnual);
+            if (businessName) {
+                document.getElementById('heroTitle').textContent = 'Aumento de Receita Anual Projetado de ' + businessName;
+            } else {
+                document.getElementById('heroTitle').textContent = 'Seu Aumento de Receita Anual Projetado';
+            }
+            document.getElementById('heroSubtitle').textContent = `Impacto mensal: ${formatCurrency(totalGainMonthly)}`;
+            
+            document.getElementById('cardRevenue').textContent = formatCurrency(totalGainAnnual);
+            const sources = [];
+            if (incrementalRevenue > 0) sources.push('ocupação e ADR');
+            if (hasAncillary && ancillaryIncrease > 0) sources.push('complementares');
+            document.getElementById('cardRevenueDesc').textContent = `por ${sources.join(' + ')}`;
+            
+            document.getElementById('cardRooms').textContent = formatNumber(roomsFilled);
+            document.getElementById('cardCommission').textContent = formatCurrency(commissionSavings);
+            document.getElementById('cardBottomLine').textContent = formatCurrency(netBottomLine);
+            
+            if (rooms) {
+                document.getElementById('contextRevPAR').textContent = formatCurrency(totalGainAnnual / (rooms * 365));
+            }
+            if (baseRoomRevenue) {
+                document.getElementById('contextROI').textContent = '+' + ((totalGainAnnual / baseRoomRevenue) * 100).toFixed(1) + '%';
+            }
+            if (los > 0) {
+                document.getElementById('contextReservations').textContent = formatNumber((futureRoomNights / los) - (baseRoomNights / los));
+            }
+            
+            const hasTechCosts = hasValue('currentTechCost') || hasValue('cloudbedsSubscription');
+            if (hasTechCosts && costDifference > 0) {
+                const months = costDifference / totalGainMonthly;
+                if (months < 12) {
+                    document.getElementById('paybackMetric').style.display = 'flex';
+                    document.getElementById('contextPayback').textContent = Math.ceil(months);
+                    document.getElementById('contextPrimary').textContent = 'Seu investimento se paga rapidamente';
+                } else {
+                    document.getElementById('paybackMetric').style.display = 'none';
+                    document.getElementById('contextPrimary').textContent = 'Seu impacto projetado no resultado final';
+                }
+                if (los > 0 && adrValue > 0) {
+                    const monthlyCost = costDifference / 12;
+                    const revPerRes = adrValue * los;
+                    document.getElementById('reservationsCostMetric').style.display = 'flex';
+                    document.getElementById('contextReservationsCost').textContent = (monthlyCost / revPerRes).toFixed(1);
+                }
+            } else {
+                document.getElementById('paybackMetric').style.display = 'none';
+                document.getElementById('reservationsCostMetric').style.display = 'none';
+                document.getElementById('contextPrimary').textContent = 'Seu impacto projetado no resultado final';
+            }
+            
+            const toolsReplaced = getNumeric('toolsReplaced');
+            if (hasValue('toolsReplaced') && toolsReplaced > 0) {
+                document.getElementById('toolsConsolidatedMetric').style.display = 'flex';
+                document.getElementById('contextToolsConsolidated').textContent = toolsReplaced;
+            } else {
+                document.getElementById('toolsConsolidatedMetric').style.display = 'none';
+            }
+        }
+        
+        function validateOccupancy() { const i = document.getElementById('occupancy'); let v = parseFloat(i.value); if (isNaN(v)) return; if (v < 0) i.value = 0; if (v > 100) i.value = 100; calculate(); }
+        function validateOccupancyGoal() { const c = parseFloat(document.getElementById('occupancy').value), g = document.getElementById('occupancyGoal'); let v = parseFloat(g.value); if (isNaN(v)) return; if (v < 0) v = 0; if (v > 100) v = 100; if (!isNaN(c) && v < c) v = c; g.value = v; calculate(); }
+        function validateAdr() { const i = document.getElementById('adr'); let v = parseFloat(i.value); if (isNaN(v)) return; if (v < 0) i.value = 0; calculate(); }
+        function validateAdrGoal() { const c = parseFloat(document.getElementById('adr').value), g = document.getElementById('adrGoal'); let v = parseFloat(g.value); if (isNaN(v)) return; if (v < 0) v = 0; if (!isNaN(c) && v < c) v = c; g.value = v; calculate(); }
+        function validateDirect() { const i = document.getElementById('directBookings'); let v = parseFloat(i.value); if (isNaN(v)) return; if (v < 0) i.value = 0; if (v > 100) i.value = 100; calculate(); }
+        function validateDirectGoal() { const c = parseFloat(document.getElementById('directBookings').value), g = document.getElementById('directBookingsGoal'); let v = parseFloat(g.value); if (isNaN(v)) return; if (v < 0) v = 0; if (v > 100) v = 100; if (!isNaN(c) && v < c) v = c; g.value = v; calculate(); }
+        function validateAncillary() { const i = document.getElementById('ancillaryRevenue'); let v = parseFloat(i.value); if (isNaN(v)) return; if (v < 0) i.value = 0; calculate(); }
+        function validateAncillaryGoal() { const c = parseFloat(document.getElementById('ancillaryRevenue').value), g = document.getElementById('ancillaryRevenueGoal'); let v = parseFloat(g.value); if (isNaN(v)) return; if (v < 0) v = 0; if (!isNaN(c) && v < c) v = c; g.value = v; calculate(); }
+        
+        calculate();
+        
+        function openDownloadModal() {
+            if (!document.getElementById('businessName').value.trim()) {
+                alert('Por favor insira o nome do negócio antes de baixar.');
+                return;
+            }
+            document.getElementById('downloadModal').classList.add('visible');
+        }
+        
+        function closeDownloadModal() { document.getElementById('downloadModal').classList.remove('visible'); }
+        
+        async function downloadPDF() {
+            const businessName = document.getElementById('businessName').value.trim();
+            if (!businessName) { alert('Por favor insira o nome do negócio.'); closeDownloadModal(); return; }
+            closeDownloadModal();
+            await new Promise(r => setTimeout(r, 300));
+            try {
+                document.body.classList.add('pdf-mode');
+                window.scrollTo(0, 0);
+                await new Promise(r => setTimeout(r, 300));
+                const canvas = await html2canvas(document.querySelector('.container'), {
+                    scale: 1.5, backgroundColor: '#F5F3ED', logging: false, useCORS: true, allowTaint: true, foreignObjectRendering: false, imageTimeout: 0
+                });
+                const imgData = canvas.toDataURL('image/png');
+                const { jsPDF } = window.jspdf;
+                const pdfWidth = 297, pdfHeight = 210, marginX = 10, marginY = 10;
+                const availW = pdfWidth - marginX * 2, availH = pdfHeight - marginY * 2;
+                const scale = Math.min(availW / canvas.width, availH / canvas.height);
+                const sw = canvas.width * scale, sh = canvas.height * scale;
+                const xOff = marginX + (availW - sw) / 2, yOff = marginY + (availH - sh) / 2;
+                const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+                pdf.addImage(imgData, 'PNG', xOff, yOff, sw, sh);
+                pdf.save(`${businessName.replace(/[^a-z0-9]/gi, '-').toLowerCase()}-vantagem-competitiva.pdf`);
+            } catch (e) { console.error('Erro ao gerar PDF:', e); alert('Erro ao gerar o PDF. Por favor tente novamente.'); }
+            finally { document.body.classList.remove('pdf-mode'); }
+        }
+    </script>
+</body>
+</html>
